@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Assignment
 {
@@ -96,17 +97,48 @@ namespace Assignment
 
         public int[] AS01_FindFirstAndLastElementOfArray(int[] array, int target)
         {
-            throw new NotImplementedException();
+            int first = -1;
+            int last = -1;
+
+            for (int i = 0; i < array.Length; i++)
+                if (array[i] == target)
+                {
+                    if (first == -1) first = i;
+                    last = i;
+                }
+
+            if (first == -1) return new int[] { -1 };
+            return new int[] { first, last };
         }
 
         public int AS02_FindMaxLessThan(int[] array, int target)
         {
-            throw new NotImplementedException();
+            int max = -1;
+
+            foreach (int num in array)
+            {
+                if (num < target && num > max)
+                {
+                    max = num;
+                }
+            }
+
+            return max;
         }
 
         public int[] AS03_FindRange(int[] array, int min, int max)
         {
-            throw new NotImplementedException();
+            List<int> result = new List<int>();
+
+            foreach (int num in array)
+            {
+                if (num >= min && num <= max)
+                {
+                    result.Add(num);
+                }
+            }
+
+            return result.ToArray();
         }
 
         #endregion
@@ -115,7 +147,26 @@ namespace Assignment
 
         public int[] EX01_FindTargetEnemies(int[] enemyHPs, int mana)
         {
-            throw new NotImplementedException();
+            int[] sortedEnemyHP = (int[])enemyHPs.Clone();
+            Array.Sort(sortedEnemyHP);
+
+            List<int> enemyResult = new List<int>();
+            int total = 0;
+
+            foreach (int hp in sortedEnemyHP)
+            {
+                if (total + hp <= mana)
+                {
+                    total += hp;
+                    enemyResult.Add(hp);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return enemyResult.ToArray();
         }
 
         #endregion
